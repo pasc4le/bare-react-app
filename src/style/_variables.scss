@@ -1,0 +1,44 @@
+/* 
+ * SCSS=>CSS Variables Organization
+ * @todo add a get_var function
+ */
+
+$variables: (
+    "primary": (
+        "100": "#ffdfa3",
+        "200": "#ffd17d",
+        "300": "#ffc04d",
+        "400": "#fab028",
+        "500": "#FFA500",
+        "600": "#f29d00",
+        "700": "#d99009",
+        "800": "#d18e13",
+        "900": "#b57c14",
+    ),
+    "secondary": "#6D0B29",
+    "tertiary": "#F7626C",
+    "dark": (
+        "300": "#333",
+        "500": "#222",
+        "700": "#111",
+    ),
+    "light": "#E5E5E5",
+    "text-font": "'Cantata One', serif",
+    "title-font": "'Calistoga', cursive",
+);
+
+@function is-map($var) {
+    @return type-of($var) == "map";
+}
+
+:root {
+    @each $name, $value in $variables {
+        @if is-map($value) {
+            @each $variant, $variant_value in $value {
+                --#{$name}-#{$variant}: #{$variant_value};
+            }
+        } @else {
+            --#{$name}: #{$value};
+        }
+    }
+}
